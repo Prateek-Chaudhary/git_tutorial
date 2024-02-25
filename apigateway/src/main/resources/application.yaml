@@ -1,0 +1,74 @@
+server:
+  port: 2222
+
+spring:
+  application:
+    name: GATEWAY-SERVER
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 2000
+        response-timeout: 2000
+#        These are the routing configuration using yaml file.
+#      routes:
+#        - id: CUSTOMER-SERVICE
+#          uri: lb://CUSTOMER-SERVICE
+#          predicates:
+#            - Path=/customer/**
+#          filters:
+#            - name: CircuitBreaker
+#              args:
+#                fallbackUri: forward:/fallback/customerMessage
+
+#        - id: HOTEL-SERVICE
+#          uri: lb://HOTEL-SERVICE
+#          predicates:
+#            - Path=/hotel/**
+#          filters:
+#            - name: CircuitBreaker
+#              args:
+#                fallbackUri: forward:/fallback/customerMessage
+#
+#        - id: CAR-RENTAL-SERVICE
+#          uri: lb://CAR-RENTAL-SERVICE
+#          predicates:
+#            - Path=/carService/**
+#          filters:
+#            - name: CircuitBreaker
+#              args:
+#                fallbackUri: forward:/fallback/customerMessage
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://serviceregistry:1000/eureka
+  instance:
+    prefer-ip-address: false
+    hostname: 192.168.190.18
+resilience4j:
+  circuitbreaker:
+    instances:
+      default:
+        register-health-indicator: true
+        wait-duration-in-open-state: 2s
+        max-wait-duration-in-half-open-state: 2s
+        failure-rate-threshold: 50
+        event-consumer-buffer-size: 10
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        sliding-window-size: 10
+        sliding-window-type: count_based
+        permitted-number-of-calls-in-half-open-state: 3

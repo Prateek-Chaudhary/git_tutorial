@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: CUSTOMER-SERVICE
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql/travelBooking?createDatabaseIfNotExist=true
+    username: root
+    password: JattaA@123
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+#  This is the way to implement config client in our microservices.
+#  All common properties to the config server's git file.
+#  config:
+#    import: configserver:http://localhost:1001
+
+server:
+  port: 1011
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://serviceregistry:1000/eureka
+  instance:
+    prefer-ip-address: false
+    hostname: 192.168.190.18
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      getCustomerCircuitBreaker:
+        wait-duration-in-open-state: 2s
+        max-wait-duration-in-half-open-state: 2s
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        sliding-window-size: 10
+        sliding-window-type: count_based
+        permitted-number-of-calls-in-half-open-state: 3

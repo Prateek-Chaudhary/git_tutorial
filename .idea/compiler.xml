@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="apigateway" />
+        <module name="car-rental-service" />
+        <module name="travel-booking-system-service-registry" />
+        <module name="customer-management-service" />
+        <module name="configserver" />
+        <module name="hotel-booking-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="flight-booking-service" target="17" />
+      <module name="notification-service" target="17" />
+      <module name="payment-management-service" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="apigateway" options="-parameters" />
+      <module name="car-rental-service" options="-parameters" />
+      <module name="configserver" options="-parameters" />
+      <module name="customer-management-service" options="-parameters" />
+      <module name="flight-booking-service" options="-parameters" />
+      <module name="hotel-booking-service" options="-parameters" />
+      <module name="notification-service" options="-parameters" />
+      <module name="payment-management-service" options="-parameters" />
+      <module name="travel-booking-system-service-registry" options="-parameters" />
+    </option>
+  </component>
+</project>

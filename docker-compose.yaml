@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  serviceregistry:
+    image: prateekchaudhary07/serviceregistry:ms3
+    ports:
+      - 1000:1000
+  
+  customermanagement:
+    image: prateekchaudhary07/customermanagement:ms3
+    ports:
+      - 1011:1011
+    depends_on:
+      - serviceregistry
+      - mysql
+  
+  apigateway:
+    image: prateekchaudhary07/apigateway:ms3
+    ports:
+      - 2222:2222
+    depends_on:
+      - serviceregistry
+  
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=JattaA@123
